@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Первообразный корень</title>
+</head>
+<body>
+	g^ф(N) = 1 (mod N)<br>
+	Введите N <input id="modul"><button onclick="work()">OK</button><br>
+	<p id="otvet"></p>
+	<script type="text/javascript">
+	function work() {
+		var modul = document.getElementById('modul').value;
+		var otvet = document.getElementById('otvet');
+
+		otvet.innerHTML = "";
+
+		function phi (n) {
+			let result = n;
+			for (let i=2; i*i<=n; ++i) {
+				if (n % i == 0) {
+					while (n % i == 0)
+						n /= i;
+					result -= result / i;
+				}
+			}
+			if (n > 1)
+				result -= result / n;
+			return result;
+		}
+
+		var f = phi(modul);
+		console.log(f);
+
+		for (let i=2;i<modul;i++) {
+			let g = Math.pow(i,f);
+			if(g%modul == 1) {
+				otvet.append("Ответ: "+i+"^"+f+" = 1(по модулю "+modul+"), g = "+g,document.createElement('br'));
+			}
+		}
+		}
+	</script>
+</body>
+</html>
